@@ -1,0 +1,41 @@
+Task 1
+class Book {
+    private String title;
+    private String author;
+    private boolean isAvailable;
+    public Book(String title, String author, boolean isAvailable) {
+        this.title = title;
+        this.author = author;
+        this.isAvailable = isAvailable;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+}
+public class LibrarySystem {
+    public static String checkoutBook(Book book) {
+        if (book.isAvailable()) {
+            book.setAvailable(false);
+            return "You have checked out " + book.getTitle() + ".";
+        } else {
+            return "Sorry, " + book.getTitle() + " is not available.";
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create some Book objects
+        Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", true);
+        Book book2 = new Book("1984", "George Orwell", false);
+
+        // Demonstrate checking out books
+        System.out.println(checkoutBook(book1)); // Should succeed
+        System.out.println(checkoutBook(book2)); // Should fail
+    }
+}

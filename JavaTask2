@@ -1,41 +1,400 @@
-Task 1
-class Book {
-    private String title;
-    private String author;
-    private boolean isAvailable;
-    public Book(String title, String author, boolean isAvailable) {
-        this.title = title;
-        this.author = author;
-        this.isAvailable = isAvailable;
-    }
-    public String getTitle() {
-        return title;
-    }
+package Task2;
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-}
-public class LibrarySystem {
-    public static String checkoutBook(Book book) {
-        if (book.isAvailable()) {
-            book.setAvailable(false);
-            return "You have checked out " + book.getTitle() + ".";
+import java.util.*;
+
+public class UnitConversion {
+
+	
+
+	public void checkprice(Scanner sc,Map<String, Integer> productPrices) {
+
+		System.out.println("Available Products : ");
+
+		for (String product : productPrices.keySet()) {
+
+            System.out.println("- " + product);
+
+        }
+
+		System.out.print("Enter product name: ");
+
+		String productname=sc.next();
+
+		if (productPrices.containsKey(productname)) {
+
+            System.out.println("Price of " + productname + ": Rs" + productPrices.get(productname));
+
         } else {
-            return "Sorry, " + book.getTitle() + " is not available.";
+
+            System.out.println("Product not found.");
+
+        }	
+
+	}
+
+	public void CalculateSalesTotal(Scanner sc) {
+
+		System.out.print("Enter the no of entry : ");
+
+		int noofentry=sc.nextInt();
+
+		int totalsales=0;
+
+		if(noofentry<=0) {
+
+			System.out.println("No Sales as of Now !!!");
+
+		}
+
+		else {
+
+			for(int i=1;i<=noofentry;i++) {
+
+				System.out.print("Enter the Price of Sales "+i+" : ");
+
+				totalsales+=sc.nextInt();
+
+			}
+
+			System.out.println("Total Sales : "+totalsales);
+
+		}
+
+	}
+
+	public void convertUnits(Scanner sc) {
+
+		System.out.print("Enter the Weight in g ");
+
+		int unit=sc.nextInt();
+
+		if(unit<0) {
+
+			System.out.println("Enter the valid Weight");
+
+		}
+
+		else {
+
+			System.out.println("Here "+unit+" g = "+(int)(unit/1000)+" kg");
+
+		}
+
+	}
+
+	public static void main(String[] args) {
+
+		Scanner sc=new Scanner(System.in);
+
+		while(true) {
+
+			System.out.println("       MENU    ");
+
+			System.out.println("1 . Check Price");
+
+			System.out.println("2 . Calculate Sales Total");
+
+			System.out.println("3 . Convert Units");
+
+			System.out.println("4 . Exit");
+
+			System.out.print("Enter your choice: ");
+
+			int input=sc.nextInt();
+
+			UnitConversion u1=new UnitConversion();
+
+			Map<String, Integer> productPrices = new HashMap<>();
+
+	        productPrices.put("Milk", 50);
+
+	        productPrices.put("Bread", 80);
+
+	        productPrices.put("Eggs", 12);
+
+	        productPrices.put("Rice", 100);
+
+			if(input == 1) {
+
+				u1.checkprice(sc,productPrices);
+
+			}
+
+			else if(input == 2) {
+
+				u1.CalculateSalesTotal(sc);
+
+			}
+
+			else if(input == 3) {
+
+				u1.convertUnits(sc);
+
+			}
+
+			else if(input == 4) {
+
+				System.out.println("!!! THANK YOU !!!");
+
+				break;
+
+			}
+
+			else {
+
+				System.out.println("Please enter the valid number !!!");
+
+			}
+
+		}
+
+	}
+
+}
+
+
+
+Question 2:
+
+
+
+package Task2;
+import java.util.*;
+import java.io.*;
+
+public class ExceptionHandling {
+    public static void openFile(String path) throws IOException {
+        File file = new File(path);
+        if (!file.exists()) {
+            throw new FileNotFoundException("File not found: " + path);
+        }
+        System.out.println("File opened successfully: " + path);
+    }
+    public static int divide(int num1, int num2) {
+        try {
+            return num1 / num2;
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Cannot divide by zero!");
+            return 0;
+        } finally {
+            System.out.println("Division attempt completed.");
         }
     }
 
     public static void main(String[] args) {
-        // Create some Book objects
-        Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", true);
-        Book book2 = new Book("1984", "George Orwell", false);
-
-        // Demonstrate checking out books
-        System.out.println(checkoutBook(book1)); // Should succeed
-        System.out.println(checkoutBook(book2)); // Should fail
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Number 1: ");
+        int num1 = sc.nextInt();
+        System.out.print("Enter Number 2: ");
+        int num2 = sc.nextInt();
+        System.out.println("Result: " + divide(num1, num2));
+        try {
+            File file = new File("myfile.txt");
+            if (file.createNewFile()) {
+                System.out.println("myfile.txt created successfully.");
+            } else {
+                System.out.println("myfile.txt already exists.");
+            }
+            openFile("myfile.txt");
+            openFile("non_existent.txt");
+            
+        } catch (IOException e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        } finally {
+            sc.close();
+            System.out.println("Closed.");
+        }
     }
 }
+
+Question 3:
+
+
+package Task2;
+
+import java.util.*;
+
+public class BitwiseOperators {
+
+	public static void main(String[] args) {
+
+		int a = 5, b = 0;
+
+        if (b != 0 && (a / b) > 1) {
+
+            System.out.println("Logical AND: This won't execute.");
+
+        } else {
+
+            System.out.println("Logical AND: No division by zero error.");
+
+        }
+
+        try {
+
+            if (b != 0 & (a / b) > 1) {
+
+                System.out.println("Bitwise AND: This won't execute.");
+
+            }
+
+        } catch (ArithmeticException e) {
+
+            System.out.println("Bitwise AND: Division by zero error!");
+
+        }
+
+        boolean result1 = true || expensiveOperation();
+
+        System.out.println("Logical OR: Expensive operation skipped.");
+
+        boolean result2 = true | expensiveOperation();
+
+        System.out.println("Bitwise OR: Expensive operation executed.");
+
+    }
+
+    private static boolean expensiveOperation() {
+
+        System.out.println("Expensive operation executed!");
+
+        return true;
+
+    }
+
+}
+
+Question 4:
+
+
+package Task2;
+
+import java.util.*;
+
+public class productInventory {
+
+	public static void main(String[] args) {
+
+		Scanner sc=new Scanner(System.in);
+
+		ArrayList<String> productList=new ArrayList<>();
+
+		productList.add("Apple");
+
+		productList.add("Mango");
+
+		productList.add("Red Banana");
+
+		productList.add("Guava");
+
+		productList.add("Papaya");
+
+		productList.add("Mango");
+
+		productList.add("Apple");
+
+		productList.add("Papaya");
+
+		productList.add("Red Banana");
+
+		productList.add("Apple");
+
+		productList.add("Mango");
+
+		System.out.println("THE ORIGINAL LIST IS "+productList);
+
+		HashSet<String> duplicateunorderedset =new HashSet<>(productList);
+
+		System.out.println("DUPLICATES REMOVED UNORDERED SET IS "+duplicateunorderedset);
+
+		LinkedHashSet<String> duplicateorderedset = new LinkedHashSet<>(productList);
+
+		System.out.println("DUPLICATES REMOVED ORDERED SET IS "+duplicateorderedset);
+
+		System.out.print("Enter the fruit to be added : ");
+
+		String name=sc.next();
+
+		productList.add(name);
+
+		System.out.println("THE MODIFIED LIST IS "+productList);
+
+		System.out.print("Enter the fruit to be removed from the available fruits : ");
+
+		String name1=sc.next();
+
+		if(productList.contains(name1)) {
+
+			productList.remove(name1);
+
+			System.out.println("THE MODIFIED LIST IS "+productList);
+
+		}
+
+		else {
+
+			System.out.println("Enter the fruits that is available");
+
+		}
+
+		System.out.print("Total available Fruits are "+duplicateorderedset.size());
+
+	}
+
+}
+
+Question 5:
+
+class Counter {
+    private int count = 0;
+
+    // Synchronized method to ensure thread safety
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+class SensorThread extends Thread {
+    private Counter counter;
+    private int increments;
+
+    public SensorThread(Counter counter, int increments) {
+        this.counter = counter;
+        this.increments = increments;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < increments; i++) {
+            counter.increment();
+        }
+    }
+}
+
+public class SensorMonitoring {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        int increments = 1000; // Number of increments per thread
+
+        // Create two sensor threads
+        SensorThread thread1 = new SensorThread(counter, increments);
+        SensorThread thread2 = new SensorThread(counter, increments);
+
+        // Start the threads
+        thread1.start();
+        thread2.start();
+
+        // Wait for both threads to finish
+        thread1.join();
+        thread2.join();
+
+        // Print the final count
+        System.out.println("Final count: " + counter.getCount());
+    }
+}
+Question 6:
+
